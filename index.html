@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assembly Language Tutorial</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header class="bg-primary text-white py-4 mb-4 shadow">
+        <div class="container">
+            <h1 class="text-center mb-0"><i class="fas fa-microchip me-3"></i>Assembly Language Tutorial</h1>
+            <p class="text-center mt-2 mb-0 opacity-75">Learn the fundamentals of assembly programming</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="mb-5">
+            <div class="row justify-content-center mb-4">
+                <div class="col-lg-10">
+                    <h2 class="text-center text-dark mb-4 section-title">Data Types & Fundamentals</h2>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Integer Constants -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0"><i class="fas fa-hashtag me-2"></i>Integer Constants</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Syntax:</p>
+                            <p class="text-muted">+ - , h, d , b</p>
+                            <p class="card-text">Examples:</p>
+                            <div class="bg-light p-2 rounded">
+                                <code>30d, 30, 6Ah, 100101b</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Integer Expressions -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0"><i class="fas fa-calculator me-2"></i>Integer Expressions</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Operator Precedence:</p>
+                            <ul class="list-unstyled">
+                                <li><span class="fw-bold">1.</span> () - parentheses</li>
+                                <li><span class="fw-bold">2.</span> +, - - Unary Plus, Minus</li>
+                                <li><span class="fw-bold">3.</span> *, /, MOD - Multiplication, Division, modulus</li>
+                                <li><span class="fw-bold">4.</span> +, - - add, subtract</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Character Constants -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0"><i class="fas fa-font me-2"></i>Character Constants</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Enclosed in Single or double quotation marks</p>
+                            <p class="card-text">Examples:</p>
+                            <div class="bg-light p-2 rounded">
+                                <code>'A', "B", "C", "D", "E", "F", "G", "H"</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- String Constants -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0"><i class="fas fa-quote-right me-2"></i>String Constants</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Enclosed in double quotation marks</p>
+                            <p class="card-text">ASCII character = 1 byte</p>
+                            <p class="card-text">Example:</p>
+                            <div class="bg-light p-2 rounded">
+                                <code>"Hello World"</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reserved Words -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-warning text-dark">
+                            <h5 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Reserved Words</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Keywords that have special meaning to the compiler. They can't be used as identifiers.</p>
+                            <p class="card-text">Examples:</p>
+                            <div class="bg-light p-2 rounded">
+                                <code>mov, dec, add, + etc</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Identifiers -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-warning text-dark">
+                            <h5 class="mb-0"><i class="fas fa-tag me-2"></i>Identifiers</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Names given to variables, constants, labels, etc.</p>
+                            <p class="card-text">Examples:</p>
+                            <div class="bg-light p-2 rounded">
+                                <code>Var21, $var21, _var21</code>
+                            </div>
+                            <ul class="mt-2">
+                                <li>They are not case sensitive</li>
+                                <li>They can't start with a number</li>
+                                <li>They can't be reserved words</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Directives -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0"><i class="fas fa-code me-2"></i>Directives</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Instructions that tell the assembler what to do</p>
+                            <p class="card-text">Examples:</p>
+                            <div class="bg-light p-2 rounded mb-2">
+                                <code>.data, .code, comments</code>
+                            </div>
+                            <ul>
+                                <li><span class="fw-bold">.data</span> - identifies the area that contains variables and constants</li>
+                                <li><span class="fw-bold">.code</span> - identifies the area that contains the program</li>
+                                <li><span class="fw-bold">comments</span> - identifies the area that contains comments</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Registers -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0"><i class="fas fa-memory me-2"></i>Registers</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Used to store data</p>
+                            <p class="card-text">Examples:</p>
+                            <div class="bg-light p-2 rounded mb-2">
+                                <code>EAX, EBX, ECX, EDX</code>
+                            </div>
+                            <p class="card-text">Example usage:</p>
+                            <div class="bg-light p-2 rounded mb-2">
+                                <code>MOV eax, 100</code>
+                            </div>
+                            <ul>
+                                <li><span class="fw-bold">EAX</span> - Extended Accumulator - 4 bytes</li>
+                                <li><span class="fw-bold">EBX</span> - Extended Base - 4 bytes</li>
+                                <li><span class="fw-bold">ECX</span> - Extended Counter - 4 bytes</li>
+                                <li><span class="fw-bold">EDX</span> - Extended Data - 4 bytes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Labels -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0"><i class="fas fa-tags me-2"></i>Labels</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Used to mark a location in the program</p>
+                            <p class="card-text">Examples:</p>
+                            <div class="bg-light p-2 rounded mb-2">
+                                <code>Label1, Label2, Label3</code>
+                            </div>
+                            <p class="card-text">Example usage:</p>
+                            <div class="bg-light p-2 rounded">
+                                <code>Subscribe: DWORD 100</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instructions -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-danger text-white">
+                            <h5 class="mb-0"><i class="fas fa-terminal me-2"></i>Instructions</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">The actual code that is executed by the computer</p>
+                            <p class="card-text">Examples:</p>
+                            <div class="bg-light p-2 rounded mb-2">
+                                <code>mov, add, sub, mul, div, mod, inc, dec, push, pop, call, ret</code>
+                            </div>
+                            <p class="card-text">Common instructions:</p>
+                            <ul class="small">
+                                <li><span class="fw-bold">mov</span> - move data from one location to another</li>
+                                <li><span class="fw-bold">add</span> - add two numbers</li>
+                                <li><span class="fw-bold">sub</span> - subtract two numbers</li>
+                                <li><span class="fw-bold">mul</span> - multiply two numbers</li>
+                                <li><span class="fw-bold">div</span> - divide two numbers</li>
+                                <li><span class="fw-bold">mod</span> - modulus of two numbers</li>
+                                <li><span class="fw-bold">inc</span> - increment a number</li>
+                                <li><span class="fw-bold">dec</span> - decrement a number</li>
+                                <li><span class="fw-bold">push</span> - push a value onto the stack</li>
+                                <li><span class="fw-bold">pop</span> - pop a value from the stack</li>
+                                <li><span class="fw-bold">call</span> - call a procedure</li>
+                                <li><span class="fw-bold">ret</span> - return from a procedure</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flags -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-danger text-white">
+                            <h5 class="mb-0"><i class="fas fa-flag me-2"></i>Flags</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Used to store the result of an instruction</p>
+                            <ul>
+                                <li><span class="fw-bold">OF</span> – Overflow Flag: Set when the signed result is too large or too small</li>
+                                <li><span class="fw-bold">CF</span> – Carry Flag: Set when an arithmetic operation generates a carry</li>
+                                <li><span class="fw-bold">PF</span> – Parity Flag: Set if the result has an even number of 1 bits</li>
+                                <li><span class="fw-bold">ZF</span> – Zero Flag: Set if the result is zero</li>
+                                <li><span class="fw-bold">SF</span> – Sign Flag: Set if the result is negative</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sizes -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-secondary text-white">
+                            <h5 class="mb-0"><i class="fas fa-expand me-2"></i>Sizes</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Used to specify data size</p>
+                            <ul>
+                                <li><span class="fw-bold">DWORD</span> - Double Word - 4 bytes</li>
+                                <li><span class="fw-bold">WORD</span> - Word - 2 bytes</li>
+                                <li><span class="fw-bold">BYTE</span> - Byte - 1 byte</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-5">
+            <div class="row justify-content-center mb-4">
+                <div class="col-lg-10">
+                    <h2 class="text-center text-dark mb-4 section-title">Common Instructions</h2>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- MOV Instruction -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-arrow-right me-2"></i>MOV Instruction</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Move data from one location to another</p>
+                            <p class="card-text">Example:</p>
+                            <div class="bg-light p-2 rounded">
+                                <code>MOV eax, 100 ;move the value 100 into the register eax</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADD Instruction -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-plus me-2"></i>ADD Instruction</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Add two numbers</p>
+                            <p class="card-text">Example:</p>
+                            <div class="bg-light p-2 rounded">
+                                <code>ADD eax, 100 ;add the value 100 to the register eax</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB Instruction -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-minus me-2"></i>SUB Instruction</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Subtract two numbers</p>
+                            <p class="card-text">Example:</p>
+                            <div class="bg-light p-2 rounded">
+                                <code>SUB eax, 100 ;subtract the value 100 from the register eax</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MUL Instruction -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-times me-2"></i>MUL Instruction</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Multiply two numbers</p>
+                            <p class="card-text">Example:</p>
+                            <div class="bg-light p-2 rounded">
+                                <code>MUL eax, 100 ;multiply the value 100 with the register eax</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DIV Instruction -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-divide me-2"></i>DIV Instruction</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Divide two numbers</p>
+                            <p class="card-text">Example:</p>
+                            <div class="bg-light p-2 rounded">
+                                <code>DIV eax, 100 ;divide the value 100 with the register eax</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INC Instruction -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-arrow-up me-2"></i>INC Instruction</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Increment a number</p>
+                            <p class="card-text">Example:</p>
+                            <div class="bg-light p-2 rounded">
+                                <code>INC eax ;increment the value in the register eax</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DEC Instruction -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-arrow-down me-2"></i>DEC Instruction</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Decrement a number</p>
+                            <p class="card-text">Example:</p>
+                            <div class="bg-light p-2 rounded">
+                                <code>DEC eax ;decrement the value in the register eax</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PUSH Instruction -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-upload me-2"></i>PUSH Instruction</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Push a value onto the stack</p>
+                            <p class="card-text">Example:</p>
+                            <div class="bg-light p-2 rounded">
+                                <code>PUSH eax ;push the value in the register eax onto the stack</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- POP Instruction -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-download me-2"></i>POP Instruction</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Pop a value from the stack</p>
+                            <p class="card-text">Example:</p>
+                            <div class="bg-light p-2 rounded">
+                                <code>POP eax ;pop the value from the stack into the register eax</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CALL Instruction -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-phone me-2"></i>CALL Instruction</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Call a procedure</p>
+                            <p class="card-text">Example:</p>
+                            <div class="bg-light p-2 rounded">
+                                <code>CALL procedure ;call the procedure</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RET Instruction -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-reply me-2"></i>RET Instruction</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Return from a procedure</p>
+                            <p class="card-text">Example:</p>
+                            <div class="bg-light p-2 rounded">
+                                <code>RET ;return from the procedure</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+        </section>
+    </main>
+
+    <div class="card text-white bg-gradient shadow-lg" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="card-body text-center py-4">
+        <i class="fas fa-code mb-3 fs-1"></i>
+        <h5 class="card-title">Assembly Code</h5>
+        <p class="card-text opacity-75">Practical implementations and examples</p>
+        <a href="code.html" class="btn btn-light btn-sm">View All Code</a>
+    </div>
+</div>
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-0">Masanga Kevin &copy; 2025</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

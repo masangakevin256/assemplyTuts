@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assembly Language Learning Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --success: #4cc9f0;
+            --warning: #f8961e;
+            --danger: #f72585;
+            --dark: #212529;
+            --light: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: 0 0 30px 30px;
+            padding: 3rem 0;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 12px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            border-radius: 12px 12px 0 0 !important;
+            font-weight: 600;
+        }
+        
+        .code-container {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: 8px;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            position: relative;
+        }
+        
+        .code-header {
+            background-color: #2d2d2d;
+            color: #ccc;
+            padding: 0.5rem 1rem;
+            border-radius: 8px 8px 0 0;
+            font-size: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .copy-btn {
+            background: transparent;
+            border: 1px solid #555;
+            color: #ccc;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .copy-btn:hover {
+            background: #555;
+            color: white;
+        }
+        
+        .keyword {
+            color: #569cd6;
+        }
+        
+        .comment {
+            color: #6a9955;
+        }
+        
+        .string {
+            color: #ce9178;
+        }
+        
+        .number {
+            color: #b5cea8;
+        }
+        
+        .nav-pills .nav-link {
+            border-radius: 50px;
+            margin: 0 5px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+        }
+        
+        .nav-pills .nav-link.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        .example-counter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            margin-right: 10px;
+        }
+        
+        .note-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        
+        .tab-content {
+            padding: 2rem 0;
+        }
+        
+        .method-badge {
+            font-size: 0.75rem;
+        }
+        
+        .section-title {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .floating-action {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+        
+        .floating-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            font-size: 1.5rem;
+        }
+        
+        .concept-card {
+            border-left: 4px solid var(--primary);
+        }
+        
+        .concept-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-microchip me-2"></i>Assembly Learning Platform
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#examples"><i class="fas fa-code me-1"></i> Examples</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#concepts"><i class="fas fa-book me-1"></i> Concepts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#resources"><i class="fas fa-link me-1"></i> Resources</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-3">Learn Assembly Language</h1>
+            <p class="lead mb-4">Master low-level programming with interactive examples and comprehensive tutorials</p>
+            <div class="alert alert-warning d-inline-block" role="alert">
+    <i class="fas fa-exclamation-triangle me-2"></i>
+    <strong>Note:</strong> All examples require Irvine32 library to work properly
+    <br>
+    <br>
+    And if you find difficulties in installing MASM and Irvine32 just WhatsApp Me
+    <br>
+    <br>
+        <div class="d-flex align-items-center gap-3">
+            <a href="https://wa.me/254793786072" class="btn btn-success">
+                <i class="fab fa-whatsapp me-2"></i>+254 793 786 072
+            </a>
+            <span class="badge bg-danger fs-6">
+                <i class="fas fa-handshake me-1"></i>Comrade Price Available!
+            </span>
+        </div>
+</div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <!-- Category Navigation -->
+        <ul class="nav nav-pills justify-content-center mb-4" id="exampleTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="basic-tab" data-bs-toggle="pill" data-bs-target="#basic" type="button" role="tab">
+                    <i class="fas fa-play-circle me-2"></i>Basic Examples
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="input-tab" data-bs-toggle="pill" data-bs-target="#input" type="button" role="tab">
+                    <i class="fas fa-keyboard me-2"></i>User Input
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="arithmetic-tab" data-bs-toggle="pill" data-bs-target="#arithmetic" type="button" role="tab">
+                    <i class="fas fa-calculator me-2"></i>Arithmetic
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="control-tab" data-bs-toggle="pill" data-bs-target="#control" type="button" role="tab">
+                    <i class="fas fa-code-branch me-2"></i>Control Flow
+                </button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="exampleTabsContent">
+            <!-- Basic Examples Tab -->
+            <div class="tab-pane fade show active" id="basic" role="tabpanel">
+                <h3 class="section-title">Basic Assembly Examples</h3>
+                
+                <!-- Hello World Example -->
+                <div class="card">
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <span class="example-counter">1</span>
+                            Hello World Program
+                        </h5>
+                        <span class="badge bg-light text-dark method-badge">WriteString</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">The classic "Hello World" program in Assembly language using Irvine32 library.</p>
+                        
+                        <div class="code-header">
+                            <span>hello.asm</span>
+                            <button class="copy-btn" onclick="copyCode('hello-code')">
+                                <i class="fas fa-copy me-1"></i>Copy
+                            </button>
+                        </div>
+                        <div class="code-container" id="hello-code">
+                            <code>
+<span class="comment">; Printing hello world using Irvine32 library</span>
+<br><br>
+<span class="keyword">INCLUDE</span> Irvine32.inc
+<br><br>
+<span class="keyword">.data</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;msg <span class="keyword">BYTE</span>  <span class="string">"Hello world!"</span>, <span class="number">0</span>
+<br><br>
+<span class="keyword">.code</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">main PROC</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> Clrscr  <span class="comment">; clear screen, optional</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> edx, <span class="keyword">OFFSET</span> msg <span class="comment">; address of string</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> WriteString <span class="comment">; Irvine32 to print a zero terminating string</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> Crlf <span class="comment">; print new line optionally</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">exit</span> <span class="comment">; return to OS</span>
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">main ENDP</span>
+<br><br>
+<span class="keyword">END</span> main
+                            </code>
+                        </div>
+                        
+                        <div class="note-box mt-3">
+                            <strong><i class="fas fa-lightbulb me-2"></i>Explanation:</strong>
+                            <ul class="mt-2 mb-0">
+                                <li><code>INCLUDE Irvine32.inc</code> includes the Irvine32 library</li>
+                                <li><code>.data</code> section defines variables and constants</li>
+                                <li><code>BYTE</code> declares a byte-sized variable</li>
+                                <li><code>WriteString</code> prints null-terminated strings</li>
+                                <li><code>Crlf</code> creates a new line (carriage return + line feed)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Paragraph Example -->
+                <div class="card">
+                    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <span class="example-counter">2</span>
+                            Multi-line Text Output
+                        </h5>
+                        <span class="badge bg-light text-dark method-badge">WriteString</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Displaying multiple lines of text using carriage return and line feed characters.</p>
+                        
+                        <div class="code-header">
+                            <span>paragraph.asm</span>
+                            <button class="copy-btn" onclick="copyCode('paragraph-code')">
+                                <i class="fas fa-copy me-1"></i>Copy
+                            </button>
+                        </div>
+                        <div class="code-container" id="paragraph-code">
+                            <code>
+<span class="keyword">INCLUDE</span> Irvine32.inc
+<br><br>
+<span class="keyword">.data</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;msg <span class="keyword">BYTE</span> <span class="string">"Hello, World!"</span>, <span class="number">0Dh</span>, <span class="number">0Ah</span>,  <span class="comment">; 0Dh is carriage return and 0Ah is Line Feed</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"My name is Kevin."</span>, <span class="number">0Dh</span>, <span class="number">0Ah</span>,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"I am learning Assembly."</span>, <span class="number">0</span>
+<br><br>
+<span class="keyword">.code</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">main PROC</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> Clrscr
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> edx, <span class="keyword">OFFSET</span> msg
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> WriteString
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">exit</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">main ENDP</span>
+<br><br>
+<span class="keyword">END</span> main
+                            </code>
+                        </div>
+                        
+                        <div class="note-box mt-3">
+                            <strong><i class="fas fa-lightbulb me-2"></i>Explanation:</strong>
+                            <ul class="mt-2 mb-0">
+                                <li><code>0Dh</code> is the ASCII code for Carriage Return</li>
+                                <li><code>0Ah</code> is the ASCII code for Line Feed</li>
+                                <li>Together they create a new line in Windows</li>
+                                <li>Multiple strings can be concatenated in the data section</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- User Input Tab -->
+            <div class="tab-pane fade" id="input" role="tabpanel">
+                <h3 class="section-title">User Input Examples</h3>
+                
+                <!-- Read Integer Example -->
+                <div class="card">
+                    <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <span class="example-counter">1</span>
+                            Reading Integer Input
+                        </h5>
+                        <span class="badge bg-light text-dark method-badge">ReadInt</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Read an integer from the user and display it back.</p>
+                        
+                        <div class="code-header">
+                            <span>readint.asm</span>
+                            <button class="copy-btn" onclick="copyCode('readint-code')">
+                                <i class="fas fa-copy me-1"></i>Copy
+                            </button>
+                        </div>
+                        <div class="code-container" id="readint-code">
+                            <code>
+<span class="keyword">INCLUDE</span> Irvine32.inc
+<br><br>
+<span class="keyword">.data</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;prompt <span class="keyword">BYTE</span> <span class="string">"Enter an integer: "</span>, <span class="number">0</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;result <span class="keyword">BYTE</span> <span class="string">"You entered: "</span>, <span class="number">0</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;num <span class="keyword">DWORD</span> ?
+<br><br>
+<span class="keyword">.code</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">main PROC</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> Clrscr
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">; Display prompt</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> edx, <span class="keyword">OFFSET</span> prompt
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> WriteString
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">; Read integer input</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> ReadInt
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> num, eax
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">; Display result</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> edx, <span class="keyword">OFFSET</span> result
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> WriteString
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> eax, num
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> WriteInt
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> Crlf
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">exit</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">main ENDP</span>
+<br><br>
+<span class="keyword">END</span> main
+                            </code>
+                        </div>
+                        
+                        <div class="note-box mt-3">
+                            <strong><i class="fas fa-lightbulb me-2"></i>Explanation:</strong>
+                            <ul class="mt-2 mb-0">
+                                <li><code>ReadInt</code> reads a 32-bit signed integer from standard input</li>
+                                <li>The input value is stored in the EAX register</li>
+                                <li><code>WriteInt</code> displays a signed integer value</li>
+                                <li>User input is stored in a variable for later use</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Read String Example -->
+                <div class="card">
+                    <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <span class="example-counter">2</span>
+                            Reading String Input
+                        </h5>
+                        <span class="badge bg-light text-dark method-badge">ReadString</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Read a string from the user and display it back.</p>
+                        
+                        <div class="code-header">
+                            <span>readstr.asm</span>
+                            <button class="copy-btn" onclick="copyCode('readstr-code')">
+                                <i class="fas fa-copy me-1"></i>Copy
+                            </button>
+                        </div>
+                        <div class="code-container" id="readstr-code">
+                            <code>
+<span class="keyword">INCLUDE</span> Irvine32.inc
+<br><br>
+<span class="keyword">.data</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;prompt <span class="keyword">BYTE</span> <span class="string">"Enter your name: "</span>, <span class="number">0</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;result <span class="keyword">BYTE</span> <span class="string">"Hello, "</span>, <span class="number">0</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;buffer <span class="keyword">BYTE</span> <span class="number">50</span> <span class="keyword">DUP</span>(<span class="number">0</span>) <span class="comment">; 50-byte buffer</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;byteCount <span class="keyword">DWORD</span> ?
+<br><br>
+<span class="keyword">.code</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">main PROC</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> Clrscr
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">; Display prompt</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> edx, <span class="keyword">OFFSET</span> prompt
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> WriteString
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">; Read string input</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> edx, <span class="keyword">OFFSET</span> buffer
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> ecx, <span class="keyword">SIZEOF</span> buffer
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> ReadString
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> byteCount, eax
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">; Display result</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> edx, <span class="keyword">OFFSET</span> result
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> WriteString
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> edx, <span class="keyword">OFFSET</span> buffer
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> WriteString
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> Crlf
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">exit</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">main ENDP</span>
+<br><br>
+<span class="keyword">END</span> main
+                            </code>
+                        </div>
+                        
+                        <div class="note-box mt-3">
+                            <strong><i class="fas fa-lightbulb me-2"></i>Explanation:</strong>
+                            <ul class="mt-2 mb-0">
+                                <li><code>DUP(0)</code> creates an array filled with zeros</li>
+                                <li><code>ReadString</code> requires buffer address in EDX and buffer size in ECX</li>
+                                <li>The number of characters read is returned in EAX</li>
+                                <li>Buffer must be large enough to hold the input plus null terminator</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Arithmetic Tab -->
+            <div class="tab-pane fade" id="arithmetic" role="tabpanel">
+                <h3 class="section-title">Arithmetic Operations</h3>
+                
+                <!-- Addition Example -->
+                <div class="card">
+                    <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <span class="example-counter">1</span>
+                            Adding Two Numbers
+                        </h5>
+                        <span class="badge bg-light text-dark method-badge">ADD</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Add two numbers and display the result.</p>
+                        
+                        <div class="code-header">
+                            <span>addition.asm</span>
+                            <button class="copy-btn" onclick="copyCode('addition-code')">
+                                <i class="fas fa-copy me-1"></i>Copy
+                            </button>
+                        </div>
+                        <div class="code-container" id="addition-code">
+                            <code>
+<span class="keyword">INCLUDE</span> Irvine32.inc
+<br><br>
+<span class="keyword">.data</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;num1 <span class="keyword">DWORD</span> <span class="number">5</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;num2 <span class="keyword">DWORD</span> <span class="number">3</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;msg  <span class="keyword">BYTE</span> <span class="string">"The sum is: "</span>, <span class="number">0</span>
+<br><br>
+<span class="keyword">.code</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">main PROC</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> Clrscr
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> eax, num1     <span class="comment">; eax = 5</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">add</span> eax, num2     <span class="comment">; eax = 5 + 3 = 8</span>
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> edx, <span class="keyword">OFFSET</span> msg
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> WriteString <span class="comment">; print message</span>
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> WriteInt    <span class="comment">; print value in EAX</span>
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> Crlf
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">exit</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">main ENDP</span>
+<br><br>
+<span class="keyword">END</span> main
+                            </code>
+                        </div>
+                        
+                        <div class="note-box mt-3">
+                            <strong><i class="fas fa-lightbulb me-2"></i>Explanation:</strong>
+                            <ul class="mt-2 mb-0">
+                                <li><code>ADD</code> instruction adds two operands</li>
+                                <li>The result is stored in the first operand</li>
+                                <li><code>DWORD</code> declares a 32-bit (double word) variable</li>
+                                <li>Arithmetic operations typically use the EAX register</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Multiplication Example -->
+                <div class="card">
+                    <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <span class="example-counter">2</span>
+                            Multiplication with User Input
+                        </h5>
+                        <span class="badge bg-light text-dark method-badge">MUL</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Get two numbers from user, multiply them, and display the result.</p>
+                        
+                        <div class="code-header">
+                            <span>multiplication.asm</span>
+                            <button class="copy-btn" onclick="copyCode('multiplication-code')">
+                                <i class="fas fa-copy me-1"></i>Copy
+                            </button>
+                        </div>
+                        <div class="code-container" id="multiplication-code">
+                            <code>
+<span class="keyword">INCLUDE</span> Irvine32.inc
+<br><br>
+<span class="keyword">.data</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;prompt1 <span class="keyword">BYTE</span> <span class="string">"Enter first number: "</span>, <span class="number">0</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;prompt2 <span class="keyword">BYTE</span> <span class="string">"Enter second number: "</span>, <span class="number">0</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;resultMsg <span class="keyword">BYTE</span> <span class="string">"The product is: "</span>, <span class="number">0</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;num1 <span class="keyword">DWORD</span> ?
+<br>&nbsp;&nbsp;&nbsp;&nbsp;num2 <span class="keyword">DWORD</span> ?
+<br><br>
+<span class="keyword">.code</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">main PROC</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> Clrscr
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">; Get first number</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> edx, <span class="keyword">OFFSET</span> prompt1
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> WriteString
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> ReadInt
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> num1, eax
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">; Get second number</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> edx, <span class="keyword">OFFSET</span> prompt2
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> WriteString
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> ReadInt
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> num2, eax
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">; Multiply numbers</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> eax, num1
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mul</span> num2     <span class="comment">; EAX = EAX * num2</span>
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">; Display result</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> edx, <span class="keyword">OFFSET</span> resultMsg
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> WriteString
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> WriteInt
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> Crlf
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">exit</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">main ENDP</span>
+<br><br>
+<span class="keyword">END</span> main
+                            </code>
+                        </div>
+                        
+                        <div class="note-box mt-3">
+                            <strong><i class="fas fa-lightbulb me-2"></i>Explanation:</strong>
+                            <ul class="mt-2 mb-0">
+                                <li><code>MUL</code> multiplies EAX by the operand</li>
+                                <li>For 32-bit multiplication, result is stored in EDX:EAX (64-bit)</li>
+                                <li>If the result fits in 32 bits, EDX will be zero</li>
+                                <li>Always clear the screen at the beginning for clean output</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Control Flow Tab -->
+            <div class="tab-pane fade" id="control" role="tabpanel">
+                <h3 class="section-title">Control Flow Examples</h3>
+                
+                <!-- Conditional Example -->
+                <div class="card">
+                    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <span class="example-counter">1</span>
+                            If-Else Implementation
+                        </h5>
+                        <span class="badge bg-light text-dark method-badge">CMP/Jump</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Check if a number is even or odd using conditional jumps.</p>
+                        
+                        <div class="code-header">
+                            <span>conditional.asm</span>
+                            <button class="copy-btn" onclick="copyCode('conditional-code')">
+                                <i class="fas fa-copy me-1"></i>Copy
+                            </button>
+                        </div>
+                        <div class="code-container" id="conditional-code">
+                            <code>
+<span class="keyword">INCLUDE</span> Irvine32.inc
+<br><br>
+<span class="keyword">.data</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;prompt <span class="keyword">BYTE</span> <span class="string">"Enter a number: "</span>, <span class="number">0</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;evenMsg <span class="keyword">BYTE</span> <span class="string">"The number is even."</span>, <span class="number">0</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;oddMsg <span class="keyword">BYTE</span> <span class="string">"The number is odd."</span>, <span class="number">0</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;num <span class="keyword">DWORD</span> ?
+<br><br>
+<span class="keyword">.code</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">main PROC</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> Clrscr
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">; Get number from user</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> edx, <span class="keyword">OFFSET</span> prompt
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> WriteString
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> ReadInt
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> num, eax
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">; Check if number is even or odd</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> ebx, <span class="number">2</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">xor</span> edx, edx    <span class="comment">; clear EDX for division</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">div</span> ebx         <span class="comment">; divide EAX by 2</span>
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">; If remainder (EDX) is 0, number is even</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">cmp</span> edx, <span class="number">0</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">je</span> isEven      <span class="comment">; jump if equal to zero</span>
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">; Number is odd</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> edx, <span class="keyword">OFFSET</span> oddMsg
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">jmp</span> displayResult
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isEven:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mov</span> edx, <span class="keyword">OFFSET</span> evenMsg
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;displayResult:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> WriteString
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">call</span> Crlf
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">exit</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">main ENDP</span>
+<br><br>
+<span class="keyword">END</span> main
+                            </code>
+                        </div>
+                        
+                        <div class="note-box mt-3">
+                            <strong><i class="fas fa-lightbulb me-2"></i>Explanation:</strong>
+                            <ul class="mt-2 mb-0">
+                                <li><code>CMP</code> compares two values and sets flags</li>
+                                <li><code>JE</code> jumps if the previous comparison was equal</li>
+                                <li><code>JMP</code> performs an unconditional jump</li>
+                                <li>Division uses EDX:EAX as the dividend, result in EAX, remainder in EDX</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="floating-action">
+        <button class="btn btn-primary floating-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Quick Actions">
+            <i class="fas fa-bolt"></i>
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Copy code to clipboard
+        function copyCode(elementId) {
+            const codeElement = document.getElementById(elementId);
+            const textArea = document.createElement('textarea');
+            textArea.value = codeElement.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            // Show feedback
+            const originalText = event.target.innerHTML;
+            event.target.innerHTML = '<i class="fas fa-check me-1"></i>Copied!';
+            setTimeout(() => {
+                event.target.innerHTML = originalText;
+            }, 2000);
+        }
+        
+        // Initialize tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+        
+        // Add smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
